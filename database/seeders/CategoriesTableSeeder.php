@@ -19,9 +19,10 @@ class CategoriesTableSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 10; $i++) {
+            $name = $faker->sentence(2, true);
             Category::create([
-                'name' => $faker->sentence(2, true),
-                'slug' => str::slug($faker->sentence(2, true)),
+                'name' => $name,
+                'slug' => str::slug($name),
             ]);
         }
     }
