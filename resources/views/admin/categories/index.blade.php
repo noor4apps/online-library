@@ -24,23 +24,21 @@
                         </thead>
                         <tbody>
                             @foreach($categories as $category)
-                                @if ($category->id != 1)
-                                    <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                                <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this category?') ) { document.getElementById('category-delete-{{ $category->id }}').submit(); } else { return false; }"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                                <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post" id="category-delete-{{ $category->id }}">
-                                                    @csrf
-                                                    @method('delete')
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->slug }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group" aria-label="Second group">
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this category?') ) { document.getElementById('category-delete-{{ $category->id }}').submit(); } else { return false; }"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post" id="category-delete-{{ $category->id }}">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
