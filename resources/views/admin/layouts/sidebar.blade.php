@@ -17,21 +17,21 @@
         <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.authors.index' ? 'active' : '' }}" href="{{ route('admin.authors.index') }}">
                 <i class="app-menu__icon fa fa-pencil-square-o"></i>
-                <span class="app-menu__label">Authors</span>
+                <span class="app-menu__label">{{ __('Authors') }}</span>
             </a>
         </li>
 
         <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.publishers.index' ? 'active' : '' }}" href="{{ route('admin.publishers.index') }}">
                 <i class="app-menu__icon fa fa-bookmark-o"></i>
-                <span class="app-menu__label">Publishers</span>
+                <span class="app-menu__label">{{ __('Publishers') }}</span>
             </a>
         </li>
 
         <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.categories.index' ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">
                 <i class="app-menu__icon fa fa-tags"></i>
-                <span class="app-menu__label">Categories</span>
+                <span class="app-menu__label">{{ __('Categories') }}</span>
             </a>
         </li>
 
