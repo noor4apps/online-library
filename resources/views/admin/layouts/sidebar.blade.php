@@ -15,6 +15,13 @@
         </li>
 
         <li>
+            <a class="app-menu__item {{ Route::currentRouteName() == 'admin.authors.index' ? 'active' : '' }}" href="{{ route('admin.authors.index') }}">
+                <i class="app-menu__icon fa fa-pencil-square-o"></i>
+                <span class="app-menu__label">Authors</span>
+            </a>
+        </li>
+
+        <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.publishers.index' ? 'active' : '' }}" href="{{ route('admin.publishers.index') }}">
                 <i class="app-menu__icon fa fa-bookmark-o"></i>
                 <span class="app-menu__label">Publishers</span>
