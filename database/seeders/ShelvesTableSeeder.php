@@ -20,9 +20,10 @@ class ShelvesTableSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 10; $i++) {
+            $name = $faker->sentence(2, true);
             Shelf::create([
-                'name' => $faker->sentence(2, true),
-                'slug' => str::slug($faker->sentence(2, true)),
+                'name' => $name,
+                'slug' => str::slug($name),
                 'category_id' => Category::inRandomOrder()->first()->id
             ]);
         }

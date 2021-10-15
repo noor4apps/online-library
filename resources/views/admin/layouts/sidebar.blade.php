@@ -36,6 +36,13 @@
         </li>
 
         <li>
+            <a class="app-menu__item {{ Route::currentRouteName() == 'admin.shelves.index' ? 'active' : '' }}" href="{{ route('admin.shelves.index') }}">
+                <i class="app-menu__icon fa fa-archive"></i>
+                <span class="app-menu__label">{{ __('shelves') }}</span>
+            </a>
+        </li>
+
+        <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.settings' ? 'active' : '' }}" href="{{ route('admin.settings') }}"><i class="app-menu__icon fa fa-cogs"></i>
                 <span class="app-menu__label">{{ __('Settings') }}</span>
             </a>
