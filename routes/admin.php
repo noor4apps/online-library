@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\ShelfController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\PublisherController;
@@ -47,5 +48,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
         Route::get('/{shelf}/edit', [ShelfController::class, 'edit'])->name('admin.shelves.edit');
         Route::patch('/{shelf}', [ShelfController::class, 'update'])->name('admin.shelves.update');
         Route::delete('/{shelf}', [ShelfController::class, 'destroy'])->name('admin.shelves.destroy');
+    });
+
+    Route::group(['prefix' => 'books'], function () {
+        Route::get('/', [BookController::class, 'index'])->name('admin.books.index');
+        Route::get('/create', [BookController::class, 'create'])->name('admin.books.create');
+        Route::post('/', [BookController::class, 'store'])->name('admin.books.store');
+        Route::get('/{book}', [BookController::class, 'show'])->name('admin.books.show');
+        Route::get('/{book}/edit', [BookController::class, 'edit'])->name('admin.books.edit');
+        Route::patch('/{book}', [BookController::class, 'update'])->name('admin.books.update');
+        Route::delete('/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
     });
 });

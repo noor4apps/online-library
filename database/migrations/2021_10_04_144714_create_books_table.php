@@ -22,7 +22,7 @@ class CreateBooksTable extends Migration
             $table->string('volume')->nullable();
             $table->string('issue')->nullable();
             $table->string('cover')->nullable();
-            $table->unsignedTinyInteger('is_pdf')->default(0);
+            $table->boolean('is_pdf')->default(0);
             $table->string('url')->nullable();
 
             $table->foreignId('publisher_id')->constrained()->onDelete('cascade');
