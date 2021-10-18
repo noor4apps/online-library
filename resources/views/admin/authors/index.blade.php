@@ -6,7 +6,7 @@
             <h1><i class="fa fa-pencil-square-o"></i> {{  __('Authors') }}</h1>
             <p>{{ __('List of all authors') }}</p>
         </div>
-        <a href="{{ route('admin.authors.create') }}" class="btn btn-primary pull-right">Add Category</a>
+        <a href="{{ route('admin.authors.create') }}" class="btn btn-primary pull-right">Add Author</a>
     </div>
     @include('partials.flash')
     <div class="row">

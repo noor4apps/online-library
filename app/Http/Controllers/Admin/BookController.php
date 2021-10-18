@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Publisher;
 use App\Traits\UploadAble;
 use Illuminate\Http\Request;
@@ -22,7 +24,9 @@ class BookController extends Controller
     public function create()
     {
         $publishers = Publisher::all();
-        return view('admin.books.create', compact('publishers'));
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('admin.books.create', compact('publishers', 'authors', 'categories'));
     }
 
     public function store(Request $request)
@@ -38,6 +42,8 @@ class BookController extends Controller
             'is_pdf' => 'nullable',
             'url' => 'required_if:is_pdf,true',
             'publisher_id' => 'required',
+            'authors' => 'required',
+            'categories' => 'required',
         ]);
 
         $params = $request->except(['_token', 'cover']);
@@ -48,6 +54,14 @@ class BookController extends Controller
         }
 
         $book = Book::create($params);
+
+        if($request->authors) {
+            $book->authors()->sync($request->authors);
+        }
+
+        if($request->categories) {
+            $book->categories()->sync($request->categories);
+        }
 
         if (!$book) {
             return redirect()->back()->with([
@@ -70,11 +84,15 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $publishers = Publisher::all();
-        return view('admin.books.edit', compact('book', 'publishers'));
+        $authors = Author::all();
+        $categories = Category::all();
+
+        return view('admin.books.edit', compact('book', 'publishers', 'authors', 'categories'));
     }
 
     public function update(Request $request, Book $book)
     {
+//        dd($request->all());
         $this->validate($request, [
             'title' => 'required',
             'isbn' => 'required',
@@ -86,6 +104,8 @@ class BookController extends Controller
             'is_pdf' => 'nullable',
             'url' => 'required_if:is_pdf,true',
             'publisher_id' => 'required',
+            'authors' => 'required',
+            'categories' => 'required',
         ]);
 
         $params = $request->except(['_token', 'cover']);
@@ -98,7 +118,15 @@ class BookController extends Controller
             $params['cover'] = $cover;
         }
 
-        $book = $book->update($params);
+        $book->update($params);
+
+        if($request->authors) {
+            $book->authors()->sync($request->authors);
+        }
+
+        if($request->categories) {
+            $book->categories()->sync($request->categories);
+        }
 
         if (!$book) {
             return redirect()->back()->with([

@@ -27,6 +27,26 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="authors-select">Authors <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control select2-multiple @error('authors') is-invalid @enderror" id="authors-select" name="authors[]" multiple>
+                                @foreach($authors as $author)
+                                    <option value="{{ $author->id }}" {{ is_array(old('authors', $book->authors->pluck('id')->toArray())) && in_array($author->id, old('authors', $book->authors->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $author->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('authors') {{ $message }} @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categories-select">Categories <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control select2-multiple @error('categories') is-invalid @enderror" id="categories-select" name="categories[]" multiple>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ is_array(old('categories', $book->categories->pluck('id')->toArray())) && in_array($category->id, old('categories', $book->categories->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('categories') {{ $message }} @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label" for="title">Title <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" value="{{ old('title', $book->title) }}"/>
                             @error('title') {{ $message }} @enderror
@@ -92,7 +112,12 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="{{ asset('backend/js/plugins/select2.min.js') }}"></script>
     <script>
+        $(document).ready(function () {
+            $('.select2-multiple').select2();
+        });
+
         loadFile = function(event, id) {
             var output = document.getElementById(id);
             output.src = URL.createObjectURL(event.target.files[0]);

@@ -22,6 +22,22 @@
                         <td>{{ $book->publisher->name }}</td>
                     </tr>
                     <tr>
+                        <th>Authors:</th>
+                        <td>
+                            @foreach($book->authors as $author)
+                                <span class="badge badge-secondary p-2"> {{ $author->name }} </span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Categories:</th>
+                        <td>
+                            @foreach($book->categories as $category)
+                                <span class="badge badge-secondary p-2"> {{ $category->name }} </span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
                         <th>ISBN:</th>
                         <td>{{ $book->isbn }}</td>
                     </tr>
