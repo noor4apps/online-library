@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\ShelfController;
 use App\Http\Controllers\Admin\AuthorController;
@@ -25,8 +26,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
 
     Route::group(['prefix' => 'publishers'], function () {
         Route::get('/', [PublisherController::class, 'index'])->name('admin.publishers.index');
-        Route::get('/create', [PublisherController::class, 'create'])->name('admin.publishers.create');
-        Route::post('/', [PublisherController::class, 'store'])->name('admin.publishers.store');
         Route::get('/{publisher}/edit', [PublisherController::class, 'edit'])->name('admin.publishers.edit');
         Route::patch('/{publisher}', [PublisherController::class, 'update'])->name('admin.publishers.update');
         Route::delete('/{publisher}', [PublisherController::class, 'destroy'])->name('admin.publishers.destroy');
@@ -58,5 +57,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
         Route::get('/{book}/edit', [BookController::class, 'edit'])->name('admin.books.edit');
         Route::patch('/{book}', [BookController::class, 'update'])->name('admin.books.update');
         Route::delete('/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+    });
+
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
+        Route::patch('/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
+        Route::delete('/{order}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
     });
 });

@@ -46,6 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function books()
     {
         return $this->belongsToMany(Book::class, 'book_users');
