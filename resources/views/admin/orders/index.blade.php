@@ -32,15 +32,15 @@
                                     <td>
                                         @if($order->checkout) {{ date('Y-m-d h:i:s a', strtotime($order->checkout)) }} @endif
                                     </td>
-                                    <td style="font-size:1.3rem ;color: #f1f1f1 ;background-color: @if($order->status == 'submitting') #f8961e @elseif($order->status == 'checkout') #f94144 @else #90be6d @endif">
+                                    <td style="font-size:1.3rem ;color: #f1f1f1 ;background-color: @if($order->status == 'submitting') #FDB45C @elseif($order->status == 'checkout') #F7464A @else #46BFBD @endif">
                                         {{ $order->status }}
                                     </td>
                                     <td>
                                         @if($order->date_returned) {{ date('Y-m-d h:i:s a', strtotime($order->date_returned)) }} @endif
                                     </td>
                                     <td>{{ $order->issue }}</td>
-                                    <td>{{ $order->userName($order->user_id) }}</td>
-                                    <td>{{ $order->bookTitle($order->book_id) }}</td>
+                                    <td>{{ \App\Models\User::FindOrFail($order->user_id)->full_name }}</td>
+                                    <td>{{ \App\Models\Book::FindOrFail($order->book_id)->title }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Second group">
                                             <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>

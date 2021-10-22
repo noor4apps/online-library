@@ -14,18 +14,6 @@ class Order extends Model
 
     protected $fillable = ['checkout', 'status', 'date_returned', 'issue', 'user_id', 'book_id'];
 
-    public $timestamps = false;
-
-    public function userName($id)
-    {
-        return User::FindOrFail($id)->full_name;
-    }
-
-    public function bookTitle($id)
-    {
-        return Book::FindOrFail($id)->title;
-    }
-
     public function setStatusAttribute($value)
     {
         $this->attributes['status'] = $value;
