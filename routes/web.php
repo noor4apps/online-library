@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index'])->name('site.index');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::view('/orders', 'site.orders.index')->name('site.orders');
+Route::view('/orders', 'site.orders.index')->name('site.orders')->middleware('auth');
 

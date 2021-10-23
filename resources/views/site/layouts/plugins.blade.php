@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/bicon.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/pe-icon-7-stroke.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/slick.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/fakeloader.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/nivo-slider.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/nivo-preview-2.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/material-design-iconic-font.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/animation.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/fancybox.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/mainmenu.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/fotorama.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/simple-line-icons.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/jquery-ui.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend/css/plugins/lightbox.css')}}">
