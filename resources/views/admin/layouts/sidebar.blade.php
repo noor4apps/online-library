@@ -3,8 +3,8 @@
     <div class="app-sidebar__user">
         <img class="app-sidebar__user-avatar" width="45px" src="https://gnd.center/bpm/resources/img/avatar-overlay-blank.png" alt="User Image">
         <div>
-            <p class="app-sidebar__user-name">John Doe</p>
-            <p class="app-sidebar__user-designation">Frontend Developer</p>
+            <p class="app-sidebar__user-name">{{ Auth::user()->full_name }}</p>
+            <p class="app-sidebar__user-designation"></p>
         </div>
     </div>
     <ul class="app-menu">

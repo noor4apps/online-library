@@ -21,9 +21,9 @@ class IsAdmin
                 return $next($request);
             }
         } else {
-            return redirect()->route('home')->with('error',"You don't have admin access.");
+            return redirect()->route('site.index')->with('error',"You don't have admin access.");
         }
 
-        return redirect()->route('home')->with('error',"You don't have admin access.");
+        return redirect()->route('site.index')->with('error',"You don't have admin access.");
     }
 }

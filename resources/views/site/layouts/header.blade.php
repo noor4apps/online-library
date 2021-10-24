@@ -27,7 +27,6 @@
                             <div class="megamenu dropdown">
                                 <ul class="item item01">
                                     <li><a href="about.html">About Page</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="team.html">Team Page</a></li>
                                 </ul>
                             </div>
@@ -44,46 +43,35 @@
                             <div class="content-inner">
                                 <div class="switcher-currency">
                                     <strong class="label switcher-label">
-                                        <span>Language</span>
-                                    </strong>
-                                    <div class="switcher-options">
-                                        <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">English01</span>
-                                            <ul class="switcher-dropdown">
-                                                <li>English02</li>
-                                                <li>English03</li>
-                                                <li>English04</li>
-                                                <li>English05</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="switcher-currency">
-                                    <strong class="label switcher-label">
-                                        <span>Select Store</span>
-                                    </strong>
-                                    <div class="switcher-options">
-                                        <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">Fashion Store</span>
-                                            <ul class="switcher-dropdown">
-                                                <li>Furniture</li>
-                                                <li>Shoes</li>
-                                                <li>Speaker Store</li>
-                                                <li>Furniture</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="switcher-currency">
-                                    <strong class="label switcher-label">
-                                        <span>My Account</span>
+                                        <span>My Account @auth: {{ Auth::user()->full_name }}@endauth</span>
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
-                                                <span><a href="#">My Account</a></span>
-                                                <span><a href="#">Sign In</a></span>
-                                                <span><a href="#">Create An Account</a></span>
+                                                <!-- Authentication Links -->
+                                                @guest
+                                                    @if (Route::has('login'))
+                                                        <span>
+                                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                                        </span>
+                                                    @endif
+
+                                                    @if (Route::has('register'))
+                                                        <span>
+                                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                        </span>
+                                                    @endif
+                                                @else
+                                                    <span>
+                                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            {{ __('Logout') }}
+                                                        </a>
+
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </span>
+                                                @endguest
                                             </div>
                                         </div>
                                     </div>
@@ -103,8 +91,6 @@
                         <li><a href="#">Pages</a>
                             <ul>
                                 <li><a href="about.html">About Page</a></li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="cart.html">Cart Page</a></li>
                                 <li><a href="team.html">Team Page</a></li>
                             </ul>
                         </li>
