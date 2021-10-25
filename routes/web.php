@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', [IndexController::class, 'index'])->name('site.index');
+Route::get('/grid', [IndexController::class, 'grid'])->name('site.grid');
+Route::get('/{book}', [IndexController::class, 'show'])->name('site.show');
 
-Auth::routes();
 
 Route::view('/orders', 'site.orders.index')->name('site.orders')->middleware('auth');
 
