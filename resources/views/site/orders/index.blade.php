@@ -49,7 +49,7 @@
                                     <td class="product-remove">
                                         @if($order->status == 'submitting')
                                             <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this order?') ) { document.getElementById('order-delete-{{ $order->id }}').submit(); } else { return false; }">X</a>
-                                            <form action="{{ route('site.destroy', $order->id) }}" method="post" id="order-delete-{{ $order->id }}">
+                                            <form action="{{ route('site.orders.destroy', $order->id) }}" method="post" id="order-delete-{{ $order->id }}">
                                                 @csrf
                                                 @method('delete')
                                             </form>

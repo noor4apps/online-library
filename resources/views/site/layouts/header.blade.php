@@ -63,7 +63,7 @@
                                                     @endif
                                                 @else
                                                     <span>
-                                                        <a href="{{ route('site.orders') }}">{{ __('My Order') }}</a>
+                                                        <a href="{{ route('site.orders.index') }}">{{ __('My Order') }}</a>
                                                     </span>
                                                     <span>
                                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

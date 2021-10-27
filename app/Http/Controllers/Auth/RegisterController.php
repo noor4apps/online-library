@@ -84,7 +84,7 @@ class RegisterController extends Controller
         if($user->is_admin == 1) {
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->route('site.orders');
+        return redirect()->route('site.orders.index');
     }
 
     public function redirectPath()

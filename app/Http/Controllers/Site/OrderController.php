@@ -74,7 +74,7 @@ class OrderController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return redirect()->route('site.orders')->with([
+        return redirect()->route('site.orders.index')->with([
             'message' => 'Order deleted successfully',
             'alert-type' => 'success'
         ]);

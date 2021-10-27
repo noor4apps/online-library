@@ -44,6 +44,6 @@ class LoginController extends Controller
         if($user->is_admin == 1) {
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->route('site.orders');
+        return redirect()->route('site.orders.index');
     }
 }
