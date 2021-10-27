@@ -23,3 +23,4 @@ Route::get('/single/{book}', [IndexController::class, 'show'])->name('site.show'
 
 Route::get('/orders', [OrderController::class, 'index'])->name('site.orders');
 Route::get('/orders/{book}', [OrderController::class, 'store'])->name('site.store');
+Route::delete('/orders/{book}', [OrderController::class, 'destroy'])->name('site.destroy');

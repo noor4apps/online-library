@@ -17,7 +17,8 @@ class OrderController extends Controller
 
     public function index()
     {
-        return view('site.orders.index');
+        $orders = Order::where('user_id', auth()->id())->get();
+        return view('site.orders.index', compact('orders'));
     }
 
     public function store(Book $book)
@@ -57,6 +58,24 @@ class OrderController extends Controller
         }
         return redirect()->back()->with([
             'message' => 'Order added successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function destroy($order)
+    {
+        $order = Order::where('user_id', auth()->id())->findOrfail($order);
+
+        $order_result = $order->delete();
+
+        if (!$order_result) {
+            return redirect()->back()->with([
+                'message' => 'Error occurred while deleting order.',
+                'alert-type' => 'error'
+            ]);
+        }
+        return redirect()->route('site.orders')->with([
+            'message' => 'Order deleted successfully',
             'alert-type' => 'success'
         ]);
     }
