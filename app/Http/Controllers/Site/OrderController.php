@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Controllers\Site;
+
+use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\Order;
+use Illuminate\Http\Request;
+
+class OrderController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('site.orders.index');
+    }
+
+    public function store(Book $book)
+    {
+        $status_book = Order::where('user_id', auth()->id())->where('book_id', $book->id)->orderByDesc('created_at')->first();
+        if ($status_book) {
+            if ($status_book->status == 'submitting') {
+                return redirect()->back()->with([
+                    'message' => 'The order was submitted.',
+                    'alert-type' => 'info'
+                ]);
+            } elseif ($status_book->status == 'checkout') {
+                return redirect()->back()->with([
+                    'message' => 'The order status is checkout.',
+                    'alert-type' => 'danger'
+                ]);
+            }
+        }
+
+        if($book->quantity == 0) {
+            return redirect()->back()->with([
+                'message' => 'The book is not available now',
+                'alert-type' => 'danger'
+            ]);
+        }
+
+        $data['user_id'] = auth()->id();
+        $data['book_id'] = $book->id;
+
+        $order = Order::create($data);
+
+        if (!$order) {
+            return redirect()->back()->with([
+                'message' => 'Error occurred while creating order.',
+                'alert-type' => 'error'
+            ]);
+        }
+        return redirect()->back()->with([
+            'message' => 'Order added successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+}

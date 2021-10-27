@@ -44,6 +44,8 @@
     </div>
     <!-- End Slider area -->
 
+    @include('partials.flash')
+
     <!-- Start BEst Seller Area -->
     <section class="wn__product__area brown--color pt--80  pb--30">
         <div class="container">
@@ -73,7 +75,7 @@
                                 <div class="action">
                                     <div class="actions_inner">
                                         <ul class="add_to_links">
-                                            <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+                                            <li><a class="compare" href="{{ route('site.store', $book->id) }}"><i class="bi bi-heart-beat"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

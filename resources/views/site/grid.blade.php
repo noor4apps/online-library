@@ -16,6 +16,8 @@
     </div>
     <!-- End Bradcaump area -->
 
+    @include('partials.flash')
+
     <!-- Start Shop Page -->
     <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
         <div class="container">
@@ -46,7 +48,7 @@
                                             <div class="action">
                                                 <div class="actions_inner">
                                                     <ul class="add_to_links">
-                                                        <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+                                                        <li><a class="compare" href="{{ route('site.store', $book->id) }}"><i class="bi bi-heart-beat"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>

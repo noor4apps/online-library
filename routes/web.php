@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\OrderController;
 use App\Http\Controllers\Site\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,7 @@ Auth::routes();
 
 Route::get('/', [IndexController::class, 'index'])->name('site.index');
 Route::get('/grid', [IndexController::class, 'grid'])->name('site.grid');
-Route::get('/{book}', [IndexController::class, 'show'])->name('site.show');
+Route::get('/single/{book}', [IndexController::class, 'show'])->name('site.show');
 
-
-Route::view('/orders', 'site.orders.index')->name('site.orders')->middleware('auth');
-
+Route::get('/orders', [OrderController::class, 'index'])->name('site.orders');
+Route::get('/orders/{book}', [OrderController::class, 'store'])->name('site.store');

@@ -17,6 +17,8 @@
     </div>
     <!-- End Bradcaump area -->
 
+    @include('partials.flash')
+
     <!-- Start main Content -->
     <div class="maincontent bg--white pt--80 pb--55">
         <div class="container">
@@ -33,7 +35,7 @@
                                     @endif
                                 </div>
                                 <div class="pt-5 text-center">
-                                    <a href="#"><i class="bi bi-heart-beat mx-2" style="font-size: xxx-large"></i></a>
+                                    <a href="{{ route('site.store', $book->id) }}"><i class="bi bi-heart-beat mx-2" style="font-size: xxx-large"></i></a>
                                     @if($book->is_pdf)
                                         <a href="{{ $book->url }}" target="_blank" class="mx-2"><i class="fa fa-download" style="font-size: xxx-large"></i></a>
                                     @endif
