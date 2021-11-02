@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BookController;
@@ -27,6 +28,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
 
     Route::group(['prefix' => 'publishers'], function () {
         Route::get('/', [PublisherController::class, 'index'])->name('admin.publishers.index');
+        Route::get('/create', [PublisherController::class, 'create'])->name('admin.publishers.create');
+        Route::post('/', [PublisherController::class, 'store'])->name('admin.publishers.store');
         Route::get('/{publisher}/edit', [PublisherController::class, 'edit'])->name('admin.publishers.edit');
         Route::patch('/{publisher}', [PublisherController::class, 'update'])->name('admin.publishers.update');
         Route::delete('/{publisher}', [PublisherController::class, 'destroy'])->name('admin.publishers.destroy');
@@ -58,6 +61,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
         Route::get('/{book}/edit', [BookController::class, 'edit'])->name('admin.books.edit');
         Route::patch('/{book}', [BookController::class, 'update'])->name('admin.books.update');
         Route::delete('/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+    });
+
+    Route::group(['prefix' => 'customers'], function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('admin.customers.index');
+        Route::get('/create', [CustomerController::class, 'create'])->name('admin.customers.create');
+        Route::post('/', [CustomerController::class, 'store'])->name('admin.customers.store');
+        Route::get('/{customer}', [CustomerController::class, 'show'])->name('admin.books.show');
+        Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('admin.customers.edit');
+        Route::patch('/{customer}', [CustomerController::class, 'update'])->name('admin.customers.update');
+        Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('admin.customers.destroy');
     });
 
     Route::group(['prefix' => 'orders'], function () {

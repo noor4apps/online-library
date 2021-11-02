@@ -15,6 +15,13 @@
         </li>
 
         <li>
+            <a class="app-menu__item {{ Route::currentRouteName() == 'admin.customers.index' ? 'active' : '' }}" href="{{ route('admin.customers.index') }}">
+                <i class="app-menu__icon fa fa-users"></i>
+                <span class="app-menu__label">{{ __('Customers') }}</span>
+            </a>
+        </li>
+
+        <li>
             <a class="app-menu__item {{ Route::currentRouteName() == 'admin.orders.index' ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">
                 <i class="app-menu__icon fa fa-inbox"></i>
                 <span class="app-menu__label">{{ __('Orders') }}</span>
