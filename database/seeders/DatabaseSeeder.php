@@ -23,6 +23,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ShelvesTableSeeder::class);
         $this->call(AuthorsTableSeeder::class);
         $this->call(BookAuthorsTableSeeder::class);
-        $this->call(SettingsTableSeeder::class);
     }
 }

@@ -8,14 +8,10 @@ use App\Http\Controllers\Admin\ShelfController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-    Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings');
-    Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');
