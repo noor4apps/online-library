@@ -15,9 +15,9 @@
         </li>
 
         <li>
-            <a class="app-menu__item {{ Route::currentRouteName() == 'admin.customers.index' ? 'active' : '' }}" href="{{ route('admin.customers.index') }}">
+            <a class="app-menu__item {{ Route::currentRouteName() == 'admin.members.index' ? 'active' : '' }}" href="{{ route('admin.members.index') }}">
                 <i class="app-menu__icon fa fa-users"></i>
-                <span class="app-menu__label">{{ __('Customers') }}</span>
+                <span class="app-menu__label">{{ __('Members') }}</span>
             </a>
         </li>
 

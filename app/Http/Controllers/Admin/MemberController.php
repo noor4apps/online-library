@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class MemberController extends Controller
 {
     public function index()
     {
-        $customers = User::where('is_admin', 0)->get();
-        return view('admin.customers.index', compact('customers'));
+        $members = User::where('is_admin', 0)->get();
+        return view('admin.members.index', compact('members'));
     }
 
     public function create()
     {
-        return view('admin.customers.create');
+        return view('admin.members.create');
     }
 
     public function store(Request $request)
@@ -36,30 +36,30 @@ class CustomerController extends Controller
 
         if (!$result) {
             return redirect()->back()->with([
-                'message' => 'Error occurred while creating customer.',
+                'message' => 'Error occurred while creating member.',
                 'alert-type' => 'error'
             ]);
         }
-        return redirect()->route('admin.customers.index')->with([
-            'message' => 'Customer added successfully',
+        return redirect()->route('admin.members.index')->with([
+            'message' => 'Member added successfully',
             'alert-type' => 'success'
         ]);
 
     }
 
-    public function edit(User $customer)
+    public function edit(User $member)
     {
-        return view('admin.customers.edit', compact('customer'));
+        return view('admin.members.edit', compact('member'));
     }
 
-    public function update(Request $request, User $customer)
+    public function update(Request $request, User $member)
     {
         $this->validate($request, [
             'first_name' => 'required|max:191',
             'last_name' => 'required|max:191',
             'contact_number' => 'required',
             'address' => 'nullable',
-            'email' => 'required|unique:users,email,' . $customer->id,
+            'email' => 'required|unique:users,email,' . $member->id,
             'password' => 'required',
         ]);
 
@@ -67,33 +67,33 @@ class CustomerController extends Controller
 
         $params['password'] = bcrypt($request->password);
 
-        $result = $customer->update($params);
+        $result = $member->update($params);
 
         if (!$result) {
             return redirect()->back()->with([
-                'message' => 'Error occurred while updating customer.',
+                'message' => 'Error occurred while updating member.',
                 'alert-type' => 'error'
             ]);
         }
-        return redirect()->route('admin.customers.index')->with([
-            'message' => 'Customer updated successfully',
+        return redirect()->route('admin.members.index')->with([
+            'message' => 'Member updated successfully',
             'alert-type' => 'success'
         ]);
 
     }
 
-    public function destroy(user $customer)
+    public function destroy(user $member)
     {
-        $result = $customer->delete();
+        $result = $member->delete();
 
         if (!$result) {
             return redirect()->back()->with([
-                'message' => 'Error occurred while deleting customer.',
+                'message' => 'Error occurred while deleting member.',
                 'alert-type' => 'error'
             ]);
         }
-        return redirect()->route('admin.customers.index')->with([
-            'message' => 'Customer deleted successfully',
+        return redirect()->route('admin.members.index')->with([
+            'message' => 'Member deleted successfully',
             'alert-type' => 'success'
         ]);
 

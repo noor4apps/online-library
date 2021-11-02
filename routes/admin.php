@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BookController;
@@ -59,14 +59,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
         Route::delete('/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
     });
 
-    Route::group(['prefix' => 'customers'], function () {
-        Route::get('/', [CustomerController::class, 'index'])->name('admin.customers.index');
-        Route::get('/create', [CustomerController::class, 'create'])->name('admin.customers.create');
-        Route::post('/', [CustomerController::class, 'store'])->name('admin.customers.store');
-        Route::get('/{customer}', [CustomerController::class, 'show'])->name('admin.books.show');
-        Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('admin.customers.edit');
-        Route::patch('/{customer}', [CustomerController::class, 'update'])->name('admin.customers.update');
-        Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('admin.customers.destroy');
+    Route::group(['prefix' => 'members'], function () {
+        Route::get('/', [MemberController::class, 'index'])->name('admin.members.index');
+        Route::get('/create', [MemberController::class, 'create'])->name('admin.members.create');
+        Route::post('/', [MemberController::class, 'store'])->name('admin.members.store');
+        Route::get('/{member}', [MemberController::class, 'show'])->name('admin.books.show');
+        Route::get('/{member}/edit', [MemberController::class, 'edit'])->name('admin.members.edit');
+        Route::patch('/{member}', [MemberController::class, 'update'])->name('admin.members.update');
+        Route::delete('/{member}', [MemberController::class, 'destroy'])->name('admin.members.destroy');
     });
 
     Route::group(['prefix' => 'orders'], function () {

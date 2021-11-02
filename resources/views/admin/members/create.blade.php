@@ -1,17 +1,17 @@
 @extends('admin.layouts.app')
-@section('title') {{ __('Customers') }} @endsection
+@section('title') {{ __('Members') }} @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-tags"></i> {{ __('Customers') }}</h1>
+            <h1><i class="fa fa-tags"></i> {{ __('Members') }}</h1>
         </div>
     </div>
     @include('partials.flash')
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="tile">
-                <h3 class="tile-title">{{ __('Create Customer') }}</h3>
-                <form action="{{ route('admin.customers.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                <h3 class="tile-title">{{ __('Create Member') }}</h3>
+                <form action="{{ route('admin.members.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="tile-body">
                         <div class="form-group">
@@ -53,9 +53,9 @@
 
 
                     <div class="tile-footer">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Customer</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Member</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary" href="{{ route('admin.customers.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
+                        <a class="btn btn-secondary" href="{{ route('admin.members.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
                     </div>
                 </form>
             </div>

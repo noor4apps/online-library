@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
-@section('title') {{ __('Customers') }} @endsection
+@section('title') {{ __('Members') }} @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-users"></i> {{  __('Customers') }}</h1>
-            <p>{{ __('List of all Customers') }}</p>
+            <h1><i class="fa fa-users"></i> {{  __('Members') }}</h1>
+            <p>{{ __('List of all Members') }}</p>
         </div>
-        <a href="{{ route('admin.customers.create') }}" class="btn btn-primary pull-right">Add Customer</a>
+        <a href="{{ route('admin.members.create') }}" class="btn btn-primary pull-right">Add Member</a>
     </div>
     @include('partials.flash')
     <div class="row">
@@ -26,19 +26,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($customers as $customer)
+                        @foreach($members as $member)
                             <tr>
-                                <td>{{ $customer->id }}</td>
-                                <td>{{ $customer->first_name }}</td>
-                                <td>{{ $customer->last_name }}</td>
-                                <td>{{ $customer->contact_number }}</td>
-                                <td>{{ $customer->address }}</td>
-                                <td>{{ $customer->email }}</td>
+                                <td>{{ $member->id }}</td>
+                                <td>{{ $member->first_name }}</td>
+                                <td>{{ $member->last_name }}</td>
+                                <td>{{ $member->contact_number }}</td>
+                                <td>{{ $member->address }}</td>
+                                <td>{{ $member->email }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Second group">
-                                        <a href="{{ route('admin.customers.edit', $customer->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                        <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this customer?') ) { document.getElementById('customer-delete-{{ $customer->id }}').submit(); } else { return false; }"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                        <form action="{{ route('admin.customers.destroy', $customer->id) }}" method="post" id="customer-delete-{{ $customer->id }}">
+                                        <a href="{{ route('admin.members.edit', $member->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this member?') ) { document.getElementById('member-delete-{{ $member->id }}').submit(); } else { return false; }"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                        <form action="{{ route('admin.members.destroy', $member->id) }}" method="post" id="member-delete-{{ $member->id }}">
                                             @csrf
                                             @method('delete')
                                         </form>
