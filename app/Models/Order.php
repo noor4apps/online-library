@@ -10,9 +10,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'book_users';
-
-    protected $fillable = ['checkout', 'status', 'date_returned', 'issue', 'user_id', 'book_id'];
+    protected $fillable = ['checkout', 'status', 'date_returned', 'issue', 'user_id'];
 
     public function setStatusAttribute($value)
     {
@@ -26,5 +24,15 @@ class Order extends Model
 
             $this->attributes['date_returned'] = date('Y-m-d H:i:s');
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'book_order');
     }
 }

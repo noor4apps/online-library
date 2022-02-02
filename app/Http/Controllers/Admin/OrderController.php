@@ -27,11 +27,11 @@ class OrderController extends Controller
             'issue' => 'nullable'
         ]);
 
-        $params = $request->except(['_token', 'checkout', 'date_returned', 'user_id', 'book_id']);
+        $params = $request->except(['_token', 'checkout', 'date_returned', 'user_id']);
 
         $order_result = $order->update($params);
 
-        $book = Book::find($order->getAttribute('book_id'));
+        $book = Book::find($order->books->first()->id);
 
         if ($request->status == 'checkout') {
             $book->update([
@@ -57,6 +57,8 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        $order->books()->detach();
+
         $order = $order->delete();
 
         if (!$order) {

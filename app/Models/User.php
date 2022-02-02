@@ -51,9 +51,8 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function books()
+    public function oredrs()
     {
-        return $this->belongsToMany(Book::class, 'book_users');
+        return $this->hasMany(Order::class);
     }
-
 }

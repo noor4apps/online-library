@@ -39,8 +39,8 @@
                                         @if($order->date_returned) {{ date('Y-m-d h:i:s a', strtotime($order->date_returned)) }} @endif
                                     </td>
                                     <td>{{ $order->issue }}</td>
-                                    <td>{{ \App\Models\User::FindOrFail($order->user_id)->full_name }}</td>
-                                    <td>{{ \App\Models\Book::FindOrFail($order->book_id)->title }}</td>
+                                    <td>{{ $order->user->full_name }}</td>
+                                    <td>{{ $order->books->first()->title }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Second group">
                                             <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>

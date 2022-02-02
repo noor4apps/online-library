@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
-class BookUsersTableSeeder extends Seeder
+class BookUserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

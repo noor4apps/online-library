@@ -23,14 +23,15 @@ class OrderController extends Controller
 
     public function store(Book $book)
     {
-        $status_book = Order::where('user_id', auth()->id())->where('book_id', $book->id)->orderByDesc('created_at')->first();
-        if ($status_book) {
-            if ($status_book->status == 'submitting') {
+        $status_order = Order::where('user_id', auth()->id())->orderByDesc('created_at')->first();
+
+        if ($status_order) {
+            if ($status_order->status == 'submitting') {
                 return redirect()->back()->with([
                     'message' => 'The order was submitted.',
                     'alert-type' => 'info'
                 ]);
-            } elseif ($status_book->status == 'checkout') {
+            } elseif ($status_order->status == 'checkout') {
                 return redirect()->back()->with([
                     'message' => 'The order status is checkout.',
                     'alert-type' => 'danger'
@@ -46,9 +47,9 @@ class OrderController extends Controller
         }
 
         $data['user_id'] = auth()->id();
-        $data['book_id'] = $book->id;
 
         $order = Order::create($data);
+        $order->books()->attach($book->id);
 
         if (!$order) {
             return redirect()->back()->with([
@@ -65,6 +66,8 @@ class OrderController extends Controller
     public function destroy($order)
     {
         $order = Order::where('user_id', auth()->id())->findOrfail($order);
+
+        $order->books()->detach();
 
         $order_result = $order->delete();
 

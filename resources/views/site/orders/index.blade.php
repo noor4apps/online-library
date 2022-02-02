@@ -45,7 +45,7 @@
                                         @if($order->date_returned) {{ date('Y-m-d h:i:s a', strtotime($order->date_returned)) }} @endif
                                     </td>
                                     <td>{{ $order->issue }}</td>
-                                    <td>{{ \App\Models\Book::FindOrFail($order->book_id)->title }}</td>
+                                    <td>{{ $order->books->first()->title }}</td>
                                     <td class="product-remove">
                                         @if($order->status == 'submitting')
                                             <a href="javascript:void(0)" onclick="if (confirm('Are you sure to delete this order?') ) { document.getElementById('order-delete-{{ $order->id }}').submit(); } else { return false; }">X</a>
