@@ -12,7 +12,7 @@ class ShelfController extends Controller
 {
     public function index()
     {
-        $shelves = Shelf::all();
+        $shelves = Shelf::With('category')->get();
         return view('admin.shelves.index', compact('shelves'));
     }
 

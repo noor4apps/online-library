@@ -20,8 +20,9 @@ class IndexController extends Controller
         return view('site.grid', compact('books'));
     }
 
-    public function show(Book $book)
+    public function show($book)
     {
+        $book = Book::with('categories', 'authors', 'categories.shelf')->whereId($book)->firstOrFail();
         return view('site.book', compact('book'));
     }
 }
