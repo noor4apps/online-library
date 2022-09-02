@@ -67,6 +67,20 @@ class OrderController extends Controller
     {
         $order = Order::where('user_id', auth()->id())->findOrfail($order);
 
+        if ($order) {
+            if ($order->status == 'checkout') {
+                return redirect()->back()->with([
+                    'message' => 'The order status is checkout.',
+                    'alert-type' => 'danger'
+                ]);
+            } elseif ($order->status == 'returned') {
+                return redirect()->back()->with([
+                    'message' => 'The order status is returned.',
+                    'alert-type' => 'danger'
+                ]);
+            }
+        }
+
         $order->books()->detach();
 
         $order_result = $order->delete();

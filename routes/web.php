@@ -22,5 +22,5 @@ Route::get('/grid', [IndexController::class, 'grid'])->name('site.grid');
 Route::get('/single/{book}', [IndexController::class, 'show'])->name('site.show');
 
 Route::get('/orders', [OrderController::class, 'index'])->name('site.orders.index');
-Route::get('/orders/{book}', [OrderController::class, 'store'])->name('site.orders.store');
+Route::post('/orders/{book}', [OrderController::class, 'store'])->name('site.orders.store');
 Route::delete('/orders/{book}', [OrderController::class, 'destroy'])->name('site.orders.destroy');

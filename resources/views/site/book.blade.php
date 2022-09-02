@@ -35,9 +35,13 @@
                                     @endif
                                 </div>
                                 <div class="pt-5 text-center">
-                                    <a href="{{ route('site.orders.store', $book->id) }}"><i class="bi bi-heart-beat mx-2" style="font-size: xxx-large"></i></a>
                                     @if($book->is_pdf)
                                         <a href="{{ $book->url }}" target="_blank" class="mx-2"><i class="fa fa-download" style="font-size: xxx-large"></i></a>
+                                    @else
+                                        <a href="{{ route('site.orders.store', $book->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();"><i class="bi bi-heart-beat mx-2" style="font-size: xxx-large"></i></a>
+                                        <form id="delete-form" action="{{ route('site.orders.store', $book->id) }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                     @endif
                                 </div>
                             </div>
