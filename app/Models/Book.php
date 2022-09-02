@@ -20,7 +20,7 @@ class Book extends Model
 
     public function setIsPdfAttribute($value)
     {
-            $this->attributes['is_pdf'] = true;
+            $this->attributes['is_pdf'] = $value == true ?? false;
     }
 
     public function getIsPdfAttribute($value)
