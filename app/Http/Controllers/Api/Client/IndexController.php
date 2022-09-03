@@ -17,9 +17,9 @@ class IndexController extends Controller
         if ($books) {
             $data = BookResource::collection($books);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function grid()
@@ -29,19 +29,21 @@ class IndexController extends Controller
         if ($books) {
             $data = BookResource::collection($books)->response()->getData(true);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function show(Book $book)
+    public function show($book)
     {
+        $book = Book::whereId($book)->first();
+
         if ($book) {
             $data =  new BookResource($book);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
 }

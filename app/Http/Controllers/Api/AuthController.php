@@ -32,10 +32,9 @@ class AuthController extends Controller
             $data['token'] = $user->createToken('api-token')->plainTextToken;
 
             return response()->json(['data' => $data, 'error' => 0, 'message' => 'You are logged in successfully'], 200);
-
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' =>  __('auth.failed')], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function register(Request $request)
@@ -63,22 +62,29 @@ class AuthController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        $data['user'] = new UserResource($user);
-        $data['token'] = $user->createToken('api-token')->plainTextToken;
+        if($user) {
+            $data['user'] = new UserResource($user);
+            $data['token'] = $user->createToken('api-token')->plainTextToken;
 
-        return response()->json(['data' => $data, 'error' => 0, 'message' => 'Successfully Registered'], 200);
+            return response()->json(['data' => $data, 'error' => 0, 'message' => 'Successfully Registered'], 200);
+        }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function logout()
     {
         $user = auth()->user();
 
-        if ($user->tokens()->delete()) {
-            return response()->json(['data' => null, 'error' => 0, 'message' => 'logged out'], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+        if(!$user) {
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
         }
 
+        if ($user->tokens()->delete()) {
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'logged out'], 200);
+        }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
 }

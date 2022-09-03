@@ -30,45 +30,45 @@ class BookController extends Controller
             $data = BookResource::collection($books)->response()->getData(true);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
         } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
         }
     }
 
     public function create()
     {
-        if(!Cache::has('create_publishers')) {
-            $publishers = Publisher::select('id','name')->get();
+        if (!Cache::has('create_publishers')) {
+            $publishers = Publisher::select('id', 'name')->get();
             Cache::remember('create_publishers', 3600, function () use ($publishers) {
                 return $publishers;
             });
         }
         $publishers = Cache::get('create_publishers');
 
-        if(!Cache::has('create_authors')) {
-            $authors = Author::select('id','name')->get();
+        if (!Cache::has('create_authors')) {
+            $authors = Author::select('id', 'name')->get();
             Cache::remember('create_authors', 3600, function () use ($authors) {
                 return $authors;
             });
         }
         $authors = Cache::get('create_authors');
 
-        if(!Cache::has('create_categories')) {
-            $categories = Category::select('id','name')->get();
+        if (!Cache::has('create_categories')) {
+            $categories = Category::select('id', 'name')->get();
             Cache::remember('create_categories', 3600, function () use ($categories) {
                 return $categories;
             });
         }
         $categories = Cache::get('create_categories');
 
-        $data['publishers'] = PublisherResource::collection($publishers);
-        $data['authors'] = AuthorResource::collection($authors);
-        $data['categories'] = CategoryResource::collection($categories);
-
         if ($publishers and $authors and $categories) {
+            $data['publishers'] = PublisherResource::collection($publishers);
+            $data['authors'] = AuthorResource::collection($authors);
+            $data['categories'] = CategoryResource::collection($categories);
+
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function store(Request $request)
@@ -101,53 +101,53 @@ class BookController extends Controller
 
         $book = Book::create($params);
 
-        if($request->authors) {
-            $book->authors()->sync($request->authors);
-        }
-
-        if($request->categories) {
-            $book->categories()->sync($request->categories);
-        }
-
-        if (!$book) {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'Error occurred while creating book.'], 201);
-        }
-
-        return response()->json(['data' => null, 'error' => 0, 'message' => 'Book added successfully'], 200);
-    }
-
-    public function show(Book $book)
-    {
         if ($book) {
-            $data =  new BookResource($book);
-            return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
 
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+            $book->authors()->sync($request->authors);
+
+            $book->categories()->sync($request->categories);
+
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Book added successfully.'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 200);
     }
 
-    public function edit(Book $book)
+    public function show($book)
     {
-        $publishers = Publisher::select('id','name')->get();
-        $authors = Author::select('id','name')->get();
-        $categories = Category::select('id','name')->get();
+        $book = Book::whereId($book)->first();
 
-        $data['book'] = new BookResource($book);
-        $data['publishers'] = PublisherResource::collection($publishers);
-        $data['authors'] = AuthorResource::collection($authors);
-        $data['categories'] = CategoryResource::collection($categories);
+        if ($book) {
+            $data = new BookResource($book);
+            return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
+        }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
+    }
+
+    public function edit($book)
+    {
+        $book = Book::whereId($book)->first();
+
+        $publishers = Publisher::select('id', 'name')->get();
+        $authors = Author::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
 
         if ($book and $publishers and $authors and $categories) {
+            $data['book'] = new BookResource($book);
+
+            $data['publishers'] = PublisherResource::collection($publishers);
+            $data['authors'] = AuthorResource::collection($authors);
+            $data['categories'] = CategoryResource::collection($categories);
+
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
-        } else {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
         }
+
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $book)
     {
-//        dd('update');
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'isbn' => 'required',
@@ -169,6 +169,12 @@ class BookController extends Controller
 
         $params = $request->except(['_token', 'cover']);
 
+        $book = Book::whereId($book)->first();
+
+        if (!$book) {
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
+        }
+
         if ($request->has('cover') && ($request->file('cover') instanceof UploadedFile)) {
             if ($book->cover != null) {
                 $this->deleteOne($book->cover);
@@ -177,36 +183,35 @@ class BookController extends Controller
             $params['cover'] = $cover;
         }
 
-        $book->update($params);
+        if ($book->update($params)) {
 
-        if($request->authors) {
             $book->authors()->sync($request->authors);
-        }
 
-        if($request->categories) {
             $book->categories()->sync($request->categories);
+
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Book updated successfully'], 200);
         }
 
-        if (!$book) {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'Error occurred while updating book.'], 201);
-        }
-
-        return response()->json(['data' => null, 'error' => 0, 'message' => 'Book updated successfully'], 200);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function destroy(Book $book)
+    public function destroy($book)
     {
+        $book = Book::whereId($book)->first();
+
+        if (!$book) {
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+        }
+
         if ($book->cover != null) {
             $this->deleteOne($book->cover);
         }
 
-        $book = $book->delete();
-
-        if (!$book) {
-            return response()->json(['data' => null, 'error' => 1, 'message' => 'Error occurred while deleting book.'], 201);
+        if ($book->delete()) {
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Book deleted successfully.'], 200);
         }
 
-        return response()->json(['data' => null, 'error' => 0, 'message' => 'Book deleted successfully.'], 200);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
 }

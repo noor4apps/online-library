@@ -69,23 +69,29 @@ class CategoryController extends Controller
 
         $category = Category::whereId($category)->first();
 
-        if ($category) {
-            $category->update($params);
+        if (!$category) {
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
+        }
+
+        if ($category->update($params)) {
             return response()->json(['data' => null, 'error' => 0, 'message' => 'Category updated successfully.'], 200);
         }
 
-        return response()->json(['data' => null, 'error' => 1, 'message' => 'Error occurred while updating category.'], 201);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function destroy($category)
     {
         $category = Category::whereId($category)->first();
 
-        if ($category) {
-            $category->delete();
+        if (!$category) {
+            return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
+        }
+
+        if ($category->delete()) {
             return response()->json(['data' => null, 'error' => 0, 'message' => 'Category deleted successfully.'], 200);
         }
 
-        return response()->json(['data' => null, 'error' => 1, 'message' => 'Error occurred while deleting category.'], 201);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 }
