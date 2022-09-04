@@ -4,28 +4,33 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\PublisherResource;
+use App\Models\Publisher;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class PublisherController extends Controller
 {
     public function index()
     {
-        $categories = Category::select('id', 'name')->get();
+        $publishers = Publisher::all();
 
-        if ($categories) {
-            $data = CategoryResource::collection($categories);
+        if ($publishers) {
+            $data = PublisherResource::collection($publishers);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
         }
 
-        return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:categories',
+            'name' => 'required|max:191',
+            'address' => 'nullable',
+            'email' => 'nullable|email',
+            'contact_number' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -34,62 +39,65 @@ class CategoryController extends Controller
 
         $params = $request->except('_token');
 
-        $category = Category::create($params);
+        $publisher = Publisher::create($params);
 
-        if ($category) {
-            return response()->json(['data' => null, 'error' => 0, 'message' => 'Category added successfully.'], 200);
+        if ($publisher) {
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Publisher added successfully.'], 200);
         }
 
         return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function edit($category)
+    public function edit($publisher)
     {
-        $category = Category::whereId($category)->first();
+        $publisher = Publisher::whereId($publisher)->first();
 
-        if ($category) {
-            $data['category'] = new CategoryResource($category);
+        if ($publisher) {
+            $data['publisher'] = new PublisherResource($publisher);
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
         }
+
         return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function update(Request $request, $category)
+    public function update(Request $request, $publisher)
     {
-
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:categories,name,' . $category,
+            'name' => 'required|max:191',
+            'address' => 'nullable',
+            'email' => 'nullable|email',
+            'contact_number' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['data' => null, 'error' => 1, 'message' => $validator->errors()->first()], 201);
         }
 
-        $params = $request->except('_token');
+        $publisher = Publisher::whereId($publisher)->first();
 
-        $category = Category::whereId($category)->first();
-
-        if (!$category) {
+        if (!$publisher) {
             return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
         }
 
-        if ($category->update($params)) {
-            return response()->json(['data' => null, 'error' => 0, 'message' => 'Category updated successfully.'], 200);
+        $params = $request->except('_token');
+
+        if ($publisher->update($params)) {
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Publisher updated successfully'], 201);
         }
 
         return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
-    public function destroy($category)
+    public function destroy($publisher)
     {
-        $category = Category::whereId($category)->first();
+        $publisher = Publisher::whereId($publisher)->first();
 
-        if (!$category) {
+        if (!$publisher) {
             return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
         }
 
-        if ($category->delete()) {
-            return response()->json(['data' => null, 'error' => 0, 'message' => 'Category deleted successfully.'], 200);
+        if ($publisher->delete()) {
+            return response()->json(['data' => null, 'error' => 0, 'message' => 'Publisher deleted successfully.'], 200);
         }
 
         return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);

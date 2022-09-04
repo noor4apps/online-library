@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\BookController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +14,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'is_admin']]
         Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
         Route::patch('/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    });
+
+    Route::group(['prefix' => 'publishers'], function () {
+        Route::get('/', [PublisherController::class, 'index'])->name('admin.publishers.index');
+        Route::post('/', [PublisherController::class, 'store'])->name('admin.publishers.store');
+        Route::get('/{publisher}/edit', [PublisherController::class, 'edit'])->name('admin.publishers.edit');
+        Route::patch('/{publisher}', [PublisherController::class, 'update'])->name('admin.publishers.update');
+        Route::delete('/{publisher}', [PublisherController::class, 'destroy'])->name('admin.publishers.destroy');
     });
 
     Route::group(['prefix' => 'books'], function () {
