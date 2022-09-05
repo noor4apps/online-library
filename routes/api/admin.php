@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\AuthorController;
 use App\Http\Controllers\Api\Admin\BookController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\MemberController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\PublisherController;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'is_admin']], function () {
+
+    Route::get('/', [DashboardController::class, 'index']);
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');
