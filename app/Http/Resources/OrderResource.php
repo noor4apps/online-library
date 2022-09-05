@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
             'returned' => $this->date_returned,
             'issue' => $this->issue,
             'books' => BookResource::collection($this->books)[0]->title,
+            'user' => new userResource($this->whenLoaded('user')),
         ];
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AuthorController;
 use App\Http\Controllers\Api\Admin\BookController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\MemberController;
+use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\PublisherController;
 use App\Http\Controllers\Api\Admin\ShelfController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'is_admin']]
         Route::get('/{member}/edit', [MemberController::class, 'edit'])->name('admin.members.edit');
         Route::patch('/{member}', [MemberController::class, 'update'])->name('admin.members.update');
         Route::delete('/{member}', [MemberController::class, 'destroy'])->name('admin.members.destroy');
+    });
+
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
+        Route::patch('/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
+        Route::delete('/{order}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
     });
 
 });
