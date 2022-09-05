@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\AuthorController;
 use App\Http\Controllers\Api\Admin\BookController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\MemberController;
 use App\Http\Controllers\Api\Admin\PublisherController;
 use App\Http\Controllers\Api\Admin\ShelfController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'is_admin']]
         Route::get('/{book}/edit', [BookController::class, 'edit'])->name('admin.books.edit');
         Route::patch('/{book}', [BookController::class, 'update'])->name('admin.books.update');
         Route::delete('/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+    });
+
+    Route::group(['prefix' => 'members'], function () {
+        Route::get('/', [MemberController::class, 'index'])->name('admin.members.index');
+        Route::post('/', [MemberController::class, 'store'])->name('admin.members.store');
+        Route::get('/{member}', [MemberController::class, 'show'])->name('admin.books.show');
+        Route::get('/{member}/edit', [MemberController::class, 'edit'])->name('admin.members.edit');
+        Route::patch('/{member}', [MemberController::class, 'update'])->name('admin.members.update');
+        Route::delete('/{member}', [MemberController::class, 'destroy'])->name('admin.members.destroy');
     });
 
 });
