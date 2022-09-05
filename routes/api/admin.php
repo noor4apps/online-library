@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AuthorController;
 use App\Http\Controllers\Api\Admin\BookController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\PublisherController;
+use App\Http\Controllers\Api\Admin\ShelfController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,6 +32,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'is_admin']]
         Route::get('/{author}/edit', [AuthorController::class, 'edit'])->name('admin.authors.edit');
         Route::patch('/{author}', [AuthorController::class, 'update'])->name('admin.authors.update');
         Route::delete('/{author}', [AuthorController::class, 'destroy'])->name('admin.authors.destroy');
+    });
+
+    Route::group(['prefix' => 'shelves'], function () {
+        Route::get('/', [ShelfController::class, 'index'])->name('admin.shelves.index');
+        Route::get('/create', [ShelfController::class, 'create'])->name('admin.shelves.create');
+        Route::post('/', [ShelfController::class, 'store'])->name('admin.shelves.store');
+        Route::get('/{shelf}/edit', [ShelfController::class, 'edit'])->name('admin.shelves.edit');
+        Route::patch('/{shelf}', [ShelfController::class, 'update'])->name('admin.shelves.update');
+        Route::delete('/{shelf}', [ShelfController::class, 'destroy'])->name('admin.shelves.destroy');
     });
 
     Route::group(['prefix' => 'books'], function () {

@@ -19,7 +19,7 @@ class CategoryController extends Controller
             return response()->json(['data' => $data, 'error' => 0, 'message' => ''], 200);
         }
 
-        return response()->json(['data' => null, 'error' => 1, 'message' => 'something went wrong!'], 201);
+        return response()->json(['data' => null, 'error' => 1, 'message' => 'Something went wrong!'], 201);
     }
 
     public function store(Request $request)
