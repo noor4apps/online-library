@@ -36,7 +36,7 @@ class IndexController extends Controller
 
     public function show($book)
     {
-        $book = Book::whereId($book)->first();
+        $book = Book::with('categories', 'authors')->whereId($book)->first();
 
         if ($book) {
             $data =  new BookResource($book);

@@ -25,6 +25,8 @@ class BookResource extends JsonResource
             'cover' => $this->cover,
             'is_pdf' => $this->is_pdf,
             'url' => $this->url,
+            'authors' => AuthorResource::collection($this->whenLoaded('authors')),
+            'categories' =>  CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }
