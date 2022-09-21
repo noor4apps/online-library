@@ -49,7 +49,7 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['data' => null, 'error' => 1, 'message' => $validator->errors()->first()], 200);
+            return response()->json(['data' => null, 'error' => 1, 'message' => $validator->errors()->first()], 201);
         }
 
         $user = User::create([
